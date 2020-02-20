@@ -1,6 +1,7 @@
+import os
+import xml.etree.ElementTree as ET
 from app import app
 from flask_wtf.file import FileField
-import os
 from flask import Flask, render_template
 from flask_wtf import FlaskForm
 from wtforms import FileField, SubmitField, ValidationError
@@ -15,11 +16,20 @@ class UploadForm(FlaskForm):
             raise ValidationError('Invalid file extension')
 
 
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     xml_upload = None
+    collect = None
+    head_xml = None
+    massage = []
+    
+    
     form = UploadForm()
     if form.validate_on_submit():
         xml_upload = 'uploads/' + form.xml_file.data.filename
-        form.xml_file.data.save(os.path.join(app.static_folder, xml_upload))
-    return render_template('index.html', form=form, xml_upload=xml_upload)
+        file_save=os.path.join(app.static_folder, xml_upload)
+        form.xml_file.data.save(file_save)
+
+    
+    return render_template('index.html', form=form, xml_upload=xml_upload,head_xml=head_xml)

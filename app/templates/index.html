@@ -19,7 +19,8 @@
             </div>
         </div>
         {% if xml_upload %}
-            <a  href="{{ url_for('static', filename=xml_upload) }}"> {{xml_upload}} </a>
+               <br /> 
+            <a  href="{{ url_for('static', filename=xml_upload) }}"> open {{xml_upload}} </a>
         {% endif %}
     </div>
 {% endblock %}
